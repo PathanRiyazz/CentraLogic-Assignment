@@ -1,0 +1,234 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Task_Management_System
+{
+
+   public class Inventory
+    {
+        private
+        List<String> name = new List<String>();
+        List<long> price = new List<long>();
+        List<long> quantity = new List<long>();
+
+        // Adding Item
+      public void addingTask()
+        {
+            Console.Write("Enter Item Name : ");
+            name.Add(Console.ReadLine());
+
+            Console.Write("Enter Item Price: ");
+            int CovPrice = Convert.ToInt32(Console.ReadLine());
+            price.Add(CovPrice);
+
+            Console.Write("Enter Item Quantity: ");
+            int CovQuantity = Convert.ToInt32(Console.ReadLine());
+            quantity.Add(CovQuantity);
+
+            Console.WriteLine("\n Item Add Sucesfully...");
+
+
+
+        }
+
+
+        // Display Function 
+        public void displayItem()
+        {
+            Console.WriteLine("Inventory");
+            for (int i = 0; i < name.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. Name : {name[i]} Price : {price[i]} Quantity: {quantity[i]}");
+            }
+        }
+
+        // Find Item Function
+       public void findItem()
+       {
+            //item available or not
+           if(!name.Any())
+           {
+                Console.WriteLine("!!! Inventory is Empty!!! Please Add Item");
+           }
+           else
+           {
+                
+                Console.WriteLine("Enter the Name to find");
+                string findName = Console.ReadLine();
+                bool presentValue = false;
+
+                for (int i = 0; i < name.Count; i++)
+                {
+                    if (name[i] == findName)
+                    {
+                        Console.WriteLine("Item is Present in List ");
+                        Console.Write($"{i + 1}. Name :  {name[i]} Price : {price[i]} Quantity: {quantity[i]}");
+                        presentValue = true;
+                        break;
+                    }
+                   
+                }
+
+                if (!presentValue)
+                {
+                    Console.WriteLine("Item is Not Present in the List");
+                }
+           }
+
+       }
+        // Delete Function
+       public void deleteItem()
+        {
+            //item available or not check 
+            if (!name.Any())
+            {
+                Console.WriteLine("!!! Inventory is Empty!!! Please Add Item");
+            }
+            else
+            {
+                for (int i = 0; i < name.Count; i++)
+                {
+                    Console.WriteLine($"ID: {i + 1}. Name : {name[i]} Price : {price[i]} Quantity: {quantity[i]}");
+                }
+
+                Console.WriteLine("Enter ID  to Delete");
+                int choice = Convert.ToInt32(Console.ReadLine()) - 1;
+
+                if (choice >= 0 && choice < price.Count)
+                {
+                    name.RemoveAt(choice);
+                    price.RemoveAt(choice);
+                    quantity.RemoveAt(choice);
+                }
+                else
+                {
+                    Console.WriteLine("Enter the Valid Choice ");
+                }
+
+            }
+        }
+
+        // Update code 
+       public void updateItem()
+        {
+            //item available or not
+            if (!name.Any())
+            {
+                Console.WriteLine("!!! Inventory is Empty !!! Please Add Item");
+            }
+
+            else
+            {
+                for (int i = 0; i < name.Count; i++)
+                {
+                    Console.WriteLine($"ID: {i + 1}. {name[i]} Price : {price[i]} Quantity: {quantity[i]}");
+                }
+
+                Console.WriteLine("Enter ID to update the Values");
+                int index = Convert.ToInt32(Console.ReadLine()) - 1;
+
+                if (index >= 0 && index < name.Count)
+                {
+                    Console.Write("Enter Updated Name: ");
+                    name[index] = Console.ReadLine();
+
+                    Console.Write("Enter Updated Price: ");
+                    price[index] = Convert.ToInt64(Console.ReadLine());
+
+                    Console.Write("Enter Updated Quantity: ");
+                    quantity[index] = Convert.ToInt64(Console.ReadLine());
+
+                }
+                else
+                {
+                    Console.WriteLine("Enter the Valid Index to Update");
+                }
+
+            }
+
+       }
+   }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Inventory obj = new Inventory();
+
+
+            while(true)
+            {
+                Console.WriteLine("--------------------------------------------------");
+                Console.WriteLine("1. Add Item ");
+                Console.WriteLine("2. Read Item ");
+                Console.WriteLine("3. Update Item ");
+                Console.WriteLine("4. Delete Item ");
+                Console.WriteLine("5. Find Item By Name ");
+                Console.WriteLine("6. Exit ");
+                Console.WriteLine("---------------------------------------------------");
+
+                Console.Write("Enter Your Choice: ");
+                int choice = Convert.ToInt32(Console.ReadLine());
+
+
+                switch (choice)
+                {
+                    case 1:
+                        {
+
+                            obj.addingTask();
+
+                        }
+                        break;
+
+                    case 2:
+                        {
+                            obj.displayItem();
+
+                        }
+                        break;
+
+                    case 3:
+                        {
+                            obj.updateItem(); 
+                        }
+                        break;
+                    case 4:
+                        {
+                            obj.deleteItem();
+
+                        }
+                        break;
+                    case 5:
+                        {
+                            obj.findItem();
+
+                        }
+                        break;
+
+                    case 6:
+                        {
+                            Environment.Exit(0);
+                        }
+                        break;
+
+                    default:
+                        {
+                            Console.WriteLine("Enter the valid Choice");
+                            break;
+                        }
+                       
+                }
+                Console.WriteLine(" \n Press Any  key to continue to the List ...");
+                Console.ReadLine();
+                Console.Clear();
+
+            } 
+
+
+        } 
+    }
+
+}
